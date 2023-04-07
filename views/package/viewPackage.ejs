@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <title>YOUR ORDER</title>
+</head>
+<body style="background: url(/public/css/arum-visuals-t800tFf-tZA-unsplash.jpg); background-attachment: fixed; position: relative;   background-position: 5% 25%;">
+    <nav class="navbar  navbar-light bg-light ">
+        <a class="navbar-brand" href="http://localhost:7000/TraceBox/HomePage">
+            <img src="/public/css/logo.png" width="70" height="auto">TraceBox
+        </a>
+        <div class="d-flex align-items-center justify-content-center me-5">
+            <% if(user) { %>
+                <div class="user-info d-flex align-items-center pe-4 me-3 p-0" style="background: rgb(248, 249, 250);">
+                    <div class="user-image d-flex align-items-center justify-content-center me-2">
+                        <div>
+                            <%= user.charAt(0).toUpperCase() %>
+                        </div>
+                    </div>
+                    <div class="user-details">
+                        <h4>
+                            <%= user.charAt(0).toUpperCase() + user.slice(1) %>
+                        </h4>
+                        <p>
+                            <%= email %>
+                        </p>
+                    </div>
+                </div>
+                <% } else { %>
+                    <div class="login/register me-5" style="display: flex; justify-content: center;">
+                        <div class="button-container" style="position: relative; left: -50px">
+                            <a href="http://localhost:7000/TraceBox/register">
+                                <img src="/public/css/account.png" width="17" height="17" />
+                                <span style="margin-left: 10px;">Signup</span>
+                            </a>
+                        </div>
+                        <div class="button-container">
+                            <a href="http://localhost:7000/TraceBox/login">
+                                <img src="/public/css/enter.png" width="17" height="17" />
+                                <span style="margin-left: 10px;">Login</span>
+                            </a>
+                        </div>
+                    </div>
+                    <% } %>
+                        <div class="dropdown align-items-center">
+                            <div data-bs-toggle="dropdown" aria-expanded="false">
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+                            </div>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="/TraceBox/Profile">Profile</a></li>
+                                <li><a class="dropdown-item" href="#">Settings</a></li>
+                                <li><a class="dropdown-item" href="/TraceBox/Logout">Logout</a></li>
+                            </ul>
+                        </div>
+        </div>
+    </nav>
+    <div class="container" style="height:100px; backdrop-filter:blur(2px);">
+        <ul class="progressbar">
+            <li class="active"><img src="/public/css/pencil.png" style="height: 50px; width: auto;"></li>
+            <li><img src="/public/css/delivery-man.png" style="height: 50px; width: auto;"></li>
+            <li><img src="/public/css/warehouse.png" style="height: 50px; width: auto;"></li>
+            <li><img src="/public/css/delivery.png" style="height: 60px; width: auto;"></li>
+            <li><img src="/public/css/packaging.png" style="height: 50px; width: auto;"></li>
+        </ul>
+    </div>
+    <div class="container bg-secondary justify-content-center align-items-center mt-5 pb-5 bg-white border border-secondary rounded-1 mb-5"style="opacity: 1.0;">
+        <h5> Order:
+            <%= data.code %>
+        </h5>
+        <div class="row d-flex align-content-center">
+            <div class="col-md-4 text-center">
+                <h6>Status:</h6>
+                <h5>
+                    <%= data.order_status %>
+                </h5>
+            </div>
+            <div class="col-md-4 text-center">
+                <h6>Place on:</h6>
+                <h5>
+                    <% let dataL=new Date(data.order_date); let zi=dataL.getDate(); let luna=dataL.getMonth() + 1; let
+                        an=dataL.getFullYear(); let data_finala=zi + '/' + luna + '/' + an; %>
+                        <%= data_finala %>
+                </h5>
+            </div>
+            <div class="col-md-4 text-center">
+                <h6>Estimated delivery date:</h6>
+                <h5>
+                    <%= data_finala=zi + 3 + '/' + luna + '/' + an; %>
+                </h5>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-8 ">
+                <div class="row d-flex mb-2 ">
+                    <p style="font-family:verdana;font-weight: bold;">Delivery Address</p>
+                    <div class="col">
+                        <p class="text-muted mb-0">CITY</p>
+                        <p>
+                            <%= data.city %>
+                        </p>
+                    </div>
+                    <div class="col">
+                        <p class="text-muted mb-0">LOCALITY</p>
+                        <p>
+                            <%= data.locality %>
+                        </p>
+                    </div>
+                    <div class="w-100"></div>
+                    <div class="col">
+                        <p class="text-muted mb-0">STREET NAME</p>
+                        <p>
+                            <%= data.street %>
+                        </p>
+                    </div>
+                    <div class="col">
+                        <p class="text-muted mb-0">BUILDING NUMBER</p>
+                        <p>
+                            <%= data.number %>
+                        </p>
+                    </div>
+                    <div class="w-100"></div>
+                    <div class="col">
+                        <p class="text-muted mb-0">POSTAL CODE</p>
+                        <p>
+                            <%= data.postal_code %>
+                        </p>
+                    </div>
+
+                    <div class="col">
+                        <p class="text-muted mb-0">ADDITIONAL INFORMATION</p>
+                        <p>
+                            <%= data.additional_info %>   
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <p class="text-muted mt-5">DELIVERY WILL BE MADE BY:</p>
+                <div>
+                    <img class="align-items-center" src="/public/css/<%= data.delivery_firm_name %>.png" width="200px" height="auto">
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row d-flex mb-3 ">
+            <p style="font-family:verdana;font-weight: bold;">Package information</p>
+            <div class="col">
+                <p class="text-muted mb-0">Number of products</p>
+                <p>
+                    <%= data.number_of_products %>
+                </p>
+            </div>
+            <div class="col">
+                <p class="text-muted mb-0">To pay</p>
+                <p>Product price: <%= data.package_cost %>
+                </p>
+                <p>Transport fee: <%= data.delivery_cost %>
+                </p>
+                <p>Total: <%= (parseFloat(data.package_cost) + parseFloat(data.delivery_cost)).toFixed(2) %>
+                </p>
+            </div>
+            <div class="col">
+                <p class="text-muted mb-0">Payment method</p>
+                <p>
+                    <%= data.payment_method %>
+                </p>
+            </div>
+        </div>
+        <div id="map-container" class="container position-relative">
+            <div id="map" data-empty="romania" data-zoom="10">></div>
+            <% if(data.order_status != 'in storage') { %>
+                <div class="overlay position-absolute top-50 start-50 translate-middle">
+                    <p>The location is currently not available.</p>
+                </div>
+            <% } %>
+        </div>
+    </div>
+
+    <% if (data.order_status =="in storage" ) { %>
+        <div id="address" data-address="<%= data.city + " " + data.delivery_firm_name %>" zoom="16"></div>
+    <% } else { %>
+            <div id="address" data-address="Romania"></div>
+    <% } %>
+
+    <script>
+    function initMap() {
+        const address = document.getElementById('address').dataset.address;
+        let zoom = 16;
+        if (address == "Romania") {
+            zoom = 7;
+        }
+        const geocoder = new google.maps.Geocoder();
+        geocoder.geocode({ address: address }, (results, status) => {
+            if (status === "OK") {
+                const map = new google.maps.Map(document.getElementById("map"), {
+                    zoom: zoom,
+                    center: results[0].geometry.location
+                });
+                const marker = new google.maps.Marker({
+                    position: results[0].geometry.location,
+                    map: map
+                });
+            } else {
+                alert("Geocodare nereușită din cauza următorului motiv: " + status);
+            }
+        });
+    }
+    window.initMap = initMap;
+
+    </script>
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCuQAe_Dec_wZMzSkaUZcBgxlCniZn8bVY&region=RO&callback=initMap"> </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>
